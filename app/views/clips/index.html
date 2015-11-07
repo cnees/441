@@ -1,0 +1,35 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+  function random_username() {
+    return "User_" + Math.floor(Math.random() * 10000).toString();
+  }
+  var username1 = random_username();
+  var username2 = random_username();
+
+  // Create users with the usernames stored in username1 and username2
+  $.post("http://localhost:3000/users", {"user": {"username": username1}}, function(data){console.log(data);});
+  $.post("http://localhost:3000/users", {"user": {"username": username2}}, function(data){console.log(data);});
+
+  // Find a user by ID (id: 1)
+  $.get("http://localhost:3000/users/1", function(data){console.log(data)});
+
+  // Make user 1 follow user 2
+  $.post("http://localhost:3000/relationships", {"follower_id": 1, "followed_id": 2}, function(data){console.log(data);});
+
+  // Create a clip
+  $.post("http://localhost:3000/clips", {"clip": {"user_id": 1, "path": "http://acappellacademy.org/wp-content/uploads/2013/10/Scales-going-up.mp3"}}, function(data){console.log(data);});
+  
+  // Find a clip by ID (id: 1)
+  $.get("http://localhost:3000/clips/1", function(data){console.log(data)});
+
+  // Fave a clip by ID (currently lets you fave as many times as you want)
+  $.ajax({
+    url: 'http://localhost:3000/clips/1/fave',
+    type: 'PUT',
+    success: function(data) {console.log(data)}
+  });
+
+  // Get a user's feed by user id
+  $.get("http://localhost:3000/users/1/feed", function(data){console.log(data)});
+
+</script>
