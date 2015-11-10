@@ -17,20 +17,11 @@ class ClipsController < ApplicationController
   end
 
   def create
-    puts "creating"
-    puts clip_params
-    clip = Clip.new(clip_params)
-    puts "created"
+    clip = Clip.new(user_id: params[:user_id], data: params[:data])
     if clip.save
       render json: clip, status: 201
     else
       render json: { errors: clip.errors }, status: 422
     end
   end
-
-  private
-
-    def clip_params
-      params.permit(:id, :user_id, :data)
-    end
 end
