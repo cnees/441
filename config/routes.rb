@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :relationships
   resources :clips do
     member do
-      options 'fave' => 'clips#fave'
       put 'fave' => 'clips#fave'
     end
   end
