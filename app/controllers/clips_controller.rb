@@ -17,7 +17,10 @@ class ClipsController < ApplicationController
   end
 
   def create
+    puts "creating"
+    puts clip_params
     clip = Clip.new(clip_params)
+    puts "created"
     if clip.save
       render json: clip, status: 201
     else
