@@ -7,29 +7,31 @@
   var username2 = random_username();
 
   // Create users with the usernames stored in username1 and username2
-  $.post("https://audio441.herokuapp.com/users", {"user": {"username": username1}}, function(data){console.log(data);});
-  $.post("https://audio441.herokuapp.com/users", {"user": {"username": username2}}, function(data){console.log(data);});
+  $.post("/users", {"user": {"username": username1}}, function(data){console.log(data);});
+  $.post("/users", {"user": {"username": username2}}, function(data){console.log(data);});
 
   // Find a user by ID (id: 1)
-  $.get("https://audio441.herokuapp.com/users/1", function(data){console.log(data)});
+  $.get("/users/1", function(data){console.log(data)});
 
   // Make user 1 follow user 2
-  $.post("https://audio441.herokuapp.com/relationships", {"follower_id": 1, "followed_id": 2}, function(data){console.log(data);});
+  $.post("/relationships", {"follower_id": 1, "followed_id": 2}, function(data){console.log(data);});
 
   // Create a clip
-  $.post("https://audio441.herokuapp.com/clips", {"clip": {"user_id": 1, "data": "fileContentHere"}}, function(data){console.log(data);});
+  $.post("/clips", {"clip": {"user_id": 1, "data": "fileContentHere"}}, function(data){console.log(data);});
   
   // Find a clip by ID (id: 1)
-  $.get("https://audio441.herokuapp.com/clips/1", function(data){console.log(data)});
+  $.get("/clips/1", function(data){console.log(data)});
 
   // Fave a clip by ID (currently lets you fave as many times as you want)
   $.ajax({
-    url: "https://audio441.herokuapp.com/clips/1/fave",
+    url: "/clips/1/fave",
     type: "PUT",
+    crossDomain: true,
+    dataType: "JSONP",
     success: function(data) {console.log(data)}
   });
 
   // Get a user's feed by user id
-  $.get("https://audio441.herokuapp.com/users/1/feed", function(data){console.log(data)});
+  $.get("/users/1/feed", function(data){console.log(data)});
 
 </script>

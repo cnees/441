@@ -31,6 +31,6 @@ class ClipsController < ApplicationController
   private
 
     def clip_params
-      params.require(:clip).permit(:id, :user_id, :data)
+      params.permit(:id, :user_id, :data)
     end
 end
