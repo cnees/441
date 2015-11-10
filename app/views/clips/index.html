@@ -7,8 +7,8 @@
   var username2 = random_username();
 
   // Create users with the usernames stored in username1 and username2
-  $.post("/users", {"user": {"username": username1}}, function(data){console.log(data);});
-  $.post("/users", {"user": {"username": username2}}, function(data){console.log(data);});
+  $.post("/users", {"username": username1}, function(data){console.log(data);});
+  $.post("/users", {"username": username2}, function(data){console.log(data);});
 
   // Find a user by ID (id: 1)
   $.get("/users/1", function(data){console.log(data)});
@@ -26,8 +26,6 @@
   $.ajax({
     url: "/clips/1/fave",
     type: "PUT",
-    crossDomain: true,
-    dataType: "JSONP",
     success: function(data) {console.log(data)}
   });
 

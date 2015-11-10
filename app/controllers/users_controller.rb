@@ -14,21 +14,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts "creating"
-    puts user_params
-    user = User.new(user_params)
+    user = User.new(username: params[:username])
     if user.save
       render json: user, status: 201
     else
       render json: { errors: user.errors }, status: 422
     end
   end
-
-  private
-
-    def user_params
-      params.permit(:id, :username)
-    end
 
 end
   
