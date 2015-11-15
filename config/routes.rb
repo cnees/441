@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       get :following, :followers
       get 'feed' => 'users#feed'
+      get 'show_feed' => 'users#show_feed'
     end
   end
   resources :relationships,       only: [:create, :destroy]

@@ -1,0 +1,42 @@
+<!DOCTYPE>
+<html>
+<head>
+  <style>
+    #feed {
+    }
+    .clip {
+      vertical-align: middle;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="feed">
+    <div class="clip">
+    </div>
+
+  </div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+
+  $(function() {
+    $("#feed").on('click', '.clip', function() {
+      $.ajax({
+        url: "/clips/" + $('this').a   + "/fave",
+        type: "PUT",
+        success: function(data) {console.log(data)}
+      });
+    });
+  });
+
+  $.get("/users/<%= params[:id] %>/feed", function(data){
+    console.log(data);
+
+    $.each(data, function(v, k) {
+      $("#feed").append("<div class='clip'>" + k.name + " uploaded by " + k.user.username + "<br><audio controls='controls' autobuffer='autobuffer' autoplay='autoplay'><source src='data:audio/wav;base64," + k.data + "'>Your browser does not support HTML5 audio.</audio><span class='fave' data-id='" + k.id + "'>&#9733; " + k.faves + "</span></div>");
+    });
+  });
+</script>
