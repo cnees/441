@@ -1,20 +1,43 @@
 <!DOCTYPE>
+<meta charset="utf-8">
 <html>
 <head>
   <style>
+    body {
+      font-family:sans-serif;
+      font-size:12px;
+    }
     #feed {
     }
     .clip {
+      margin:10px;
+      margin-left:auto;
+      margin-right:auto;
+      padding:10px;
+      border: 1px solid #ccc;
       vertical-align: middle;
+      width:301px;
+      box-shadow:0 0 15px #000;
+    }
+    .fave {
+      font-weight:bold;
+      display:block;
+      float:right;
+    }
+    .fave:hover{
+      text-shadow: 0 0 5px #ffd700;
+    }
+    .fave:active{
+      text-shadow: 0 0 5px #ffd700, 0 0 15px #ff0;
+    }
+    .fave::before {
+      content: " \2605 ";
     }
 
   </style>
 </head>
 <body>
   <div id="feed">
-    <div class="clip">
-    </div>
-
   </div>
 </body>
 </html>
@@ -23,11 +46,15 @@
 <script>
 
   $(function() {
-    $("#feed").on('click', '.clip', function() {
+    $("#feed").on('click', '.fave', function() {
+      var self = $(this);
+      var path = "/clips/" + self.data("id") + "/fave";
       $.ajax({
-        url: "/clips/" + $('this').a   + "/fave",
+        url: path,
         type: "PUT",
-        success: function(data) {console.log(data)}
+        success: function(data) {
+          self.html(parseInt(self.html(), 10) + 1);
+        }
       });
     });
   });
@@ -36,7 +63,9 @@
     console.log(data);
 
     $.each(data, function(v, k) {
-      $("#feed").append("<div class='clip'>" + k.name + " uploaded by " + k.user.username + "<br><audio controls='controls' autobuffer='autobuffer' autoplay='autoplay'><source src='data:audio/wav;base64," + k.data + "'>Your browser does not support HTML5 audio.</audio><span class='fave' data-id='" + k.id + "'>&#9733; " + k.faves + "</span></div>");
+      var faves = k.faves === null ? 0 : k.faves;
+      $("#feed").append("<div class='clip'>" + k.name + " uploaded by " + k.user.username + "<span class='fave' data-id='" + k.id + "'>" + faves + "</span><br><br><audio controls='controls' autobuffer='autobuffer'><source src='data:audio/wav;base64," + k.data + "'>Your browser does not support HTML5 audio.</audio></div>");
     });
   });
+
 </script>

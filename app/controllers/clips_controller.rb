@@ -17,7 +17,7 @@ class ClipsController < ApplicationController
   end
 
   def create
-    clip = Clip.new(user_id: params[:user_id], data: params[:data])
+    clip = Clip.new(user_id: params[:user_id], data: params[:data], name: params[:name])
     if clip.save
       render json: clip, status: 201
     else
