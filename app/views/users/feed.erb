@@ -19,10 +19,13 @@
       width:301px;
       box-shadow:0 0 15px #000;
     }
-    .fave {
+    .fave, .repost, .reposted {
       font-weight:bold;
       display:block;
       float:right;
+    }
+    .repost, .reposted {
+      margin-top:-2px;
     }
     .fave:hover{
       text-shadow: 0 0 5px #ffd700;
@@ -30,10 +33,21 @@
     .fave:active{
       text-shadow: 0 0 5px #ffd700, 0 0 15px #ff0;
     }
+    .repost:hover{
+      text-shadow: 0 0 5px #be3cce;
+    }
+    .repost:active{
+      text-shadow: 0 0 5px #be3cce, 0 0 15px #f0f;
+    }
     .fave::before {
       content: " \2605 ";
     }
-
+    .repost::before {
+      content: " \267A ";
+    }
+    .reposted::before {
+      content: "\2713 ";
+    }
   </style>
 </head>
 <body>
@@ -46,6 +60,15 @@
 <script>
 
   $(function() {
+
+    $("#feed").on('click', '.repost', function() {
+      var self = $(this);
+      $.post("/reposts", {"reposter_id": <%= params[:id] %>, "clip_id": self.data("id")}, function(data){
+        self.toggleClass("repost");
+        self.toggleClass("reposted");
+      });
+    });
+
     $("#feed").on('click', '.fave', function() {
       var self = $(this);
       var path = "/clips/" + self.data("id") + "/fave";
@@ -64,7 +87,7 @@
 
     $.each(data, function(v, k) {
       var faves = k.faves === null ? 0 : k.faves;
-      $("#feed").append("<div class='clip'>" + k.name + " uploaded by " + k.user.username + "<span class='fave' data-id='" + k.id + "'>" + faves + "</span><br><br><audio controls='controls' autobuffer='autobuffer'><source src='data:audio/wav;base64," + k.data + "'>Your browser does not support HTML5 audio.</audio></div>");
+      $("#feed").append("<div class='clip'>" + k.name + " uploaded by " + k.user.username + "<span class='fave' data-id='" + k.id + "'>" + faves + "</span><span data-id='" + k.id + "' class='repost'>&nbsp;&nbsp;&nbsp;</span><br><br><audio controls='controls' autobuffer='autobuffer'><source src='data:audio/wav;base64," + k.data + "'>Your browser does not support HTML5 audio.</audio></div>");
     });
   });
 

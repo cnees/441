@@ -16,6 +16,9 @@
   // Make user 1 follow user 2
   $.post("/relationships", {"follower_id": 1, "followed_id": 2}, function(data){console.log(data);});
 
+  // Make user 1 repost clip 2
+  $.post("/reposts", {"reposter_id": 1, "clip_id": 2}, function(data){console.log(data);});
+
   // Create a clip
   $.post("/clips", {"user_id": 1, "name": "clip_name", "data": "fileContentHere"}, function(data){console.log(data);});
   

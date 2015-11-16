@@ -11,7 +11,7 @@ class ClipsController < ApplicationController
       clip.faves += 1
     else
       clip.faves = 1
-    end 
+    end
     clip.save!
     render json: clip, status: 204
   end

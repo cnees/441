@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :relationships
+  resources :reposts
   resources :clips do
     member do
       put 'fave' => 'clips#fave'
