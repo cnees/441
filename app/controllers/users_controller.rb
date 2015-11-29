@@ -3,10 +3,12 @@ class UsersController < ApplicationController
 
   def feed
     id = params[:id]
-    following_ids = "SELECT followed_id FROM relationships
-                     WHERE  follower_id = :user_id"
-    render json: Clip.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id), :include => :user
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    clip_ids = "SELECT clip_id FROM reposts WHERE user_id IN (#{following_ids})"
+    
+    render json: Clip.where("(user_id IN (#{following_ids})
+                         OR user_id = :user_id OR id IN (#{clip_ids}))", user_id: id), :include => :user
+    
   end
 
   def show_feed

@@ -5,17 +5,17 @@
   }
   var username1 = random_username();
   var username2 = random_username();
-
+/*
   // Create users with the usernames stored in username1 and username2
   $.post("/users", {"username": username1}, function(data){console.log(data);});
   $.post("/users", {"username": username2}, function(data){console.log(data);});
 
   // Find a user by ID (id: 1)
   $.get("/users/1", function(data){console.log(data)});
-
-  // Make user 1 follow user 2
-  $.post("/relationships", {"follower_id": 1, "followed_id": 2}, function(data){console.log(data);});
-
+*/
+  // Make user 2 follow user 1
+  $.post("https://audio441.herokuapp.com/relationships", {"follower_id": 2, "followed_id": 1}, function(data){console.log(data);});
+/*
   // Make user 1 repost clip 2
   $.post("/reposts", {"reposter_id": 1, "clip_id": 2}, function(data){console.log(data);});
 
@@ -34,5 +34,5 @@
 
   // Get a user's feed by user id
   $.get("/users/1/feed", function(data){console.log(data)});
-
+*/
 </script>
