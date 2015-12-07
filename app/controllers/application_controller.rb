@@ -29,4 +29,8 @@ class ApplicationController < ActionController::Base
   def popular
     render json: Clip.order("faves DESC").limit(10);
   end
+
+  def search
+    render json: Clip.where("name like ?", "%#{params[:query]}%")
+  end
 end

@@ -35,6 +35,9 @@
       // Find a clip by ID (id: 1)
       $.get("/clips/" + c1id, function(data){console.log(data)});
 
+      // Search clips by name
+      $.get("/search?query=am", function(data){console.log(data)});
+
       // Get popular clips
       $.get("/popular", function(data){console.log(data)});
 
