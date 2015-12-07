@@ -5,34 +5,61 @@
   }
   var username1 = random_username();
   var username2 = random_username();
-/*
+
+  var u1id = 1;
+  var u2id = 2;
+  var c1id = 1;
   // Create users with the usernames stored in username1 and username2
-  $.post("/users", {"username": username1}, function(data){console.log(data);});
-  $.post("/users", {"username": username2}, function(data){console.log(data);});
+  $.post("/users", {"username": username1, "password": "abc123", email: "u1@example.com"}, function(data){
+    console.log(data);
+    u1id = data.id;
 
-  // Find a user by ID (id: 1)
-  $.get("/users/1", function(data){console.log(data)});
-*/
-  // Make user 2 follow user 1
-  $.post("https://audio441.herokuapp.com/relationships", {"follower_id": 2, "followed_id": 1}, function(data){console.log(data);});
-/*
-  // Make user 1 repost clip 2
-  $.post("/reposts", {"reposter_id": 1, "clip_id": 2}, function(data){console.log(data);});
+    // Login as user with id u1id
+    $.post("/users/" + u1id + "/login", {"password": "abc123"}, function(data){console.log(data);});
+    
+    // Failed login demo - bad uid
+    $.post("/users/" + 1000000 + "/login", {"password": "abc123"}, function(data){console.log(data);});
 
-  // Create a clip
-  $.post("/clips", {"user_id": 1, "name": "clip_name", "data": "fileContentHere"}, function(data){console.log(data);});
-  
-  // Find a clip by ID (id: 1)
-  $.get("/clips/1", function(data){console.log(data)});
+    // Failed login demo - bad password
+    $.post("/users/" + u1id + "/login", {"password": "asdf"}, function(data){console.log(data);});
 
-  // Fave a clip by ID (currently lets you fave as many times as you want)
-  $.ajax({
-    url: "/clips/1/fave",
-    type: "PUT",
-    success: function(data) {console.log(data)}
+    // Find a user by ID
+    $.get("/users/" + u1id, function(data){console.log(data)});
+
+    // Create a clip
+    $.post("/clips", {"user_id": u1id, "name": "clip_name", "data": "fileContentHere"}, function(data){
+      console.log(data);
+      
+      c1id = data.id;
+
+      // Find a clip by ID (id: 1)
+      $.get("/clips/" + c1id, function(data){console.log(data)});
+
+      // Fave a clip by ID (currently lets you fave as many times as you want)
+      $.ajax({
+        url: "/clips/" + c1id + "/fave",
+        type: "PUT",
+        success: function(data) {console.log(data)}
+      });
+      
+    });
+
+    // Make another user
+    $.post("/users", {"username": username2, "password": "abc123", email: "u2@example.com"}, function(data){
+      console.log(data);
+      u2id = data.id;
+
+      // Make user 2 follow user 1
+      $.post("/relationships", {"follower_id": u2id, "followed_id": u1id}, function(data){console.log(data);});
+
+      // Make user 1 repost clip 2
+      $.post("/reposts", {"reposter_id": u1id, "clip_id": c1id}, function(data){console.log(data);});
+
+    });
+    
   });
-
+  
   // Get a user's feed by user id
-  $.get("/users/1/feed", function(data){console.log(data)});
-*/
+  $.get("/users/" + 1 + "/feed", function(data){console.log(data)});
+
 </script>

@@ -11,6 +11,19 @@ class UsersController < ApplicationController
     
   end
 
+  def login
+    if User.exists?(params[:id])
+      u = User.find(params[:id])
+      if u.password == Digest::SHA2.hexdigest(u.salt + params[:password])
+        render json: { :success => "true", :message => "Login successful"}
+      else
+        render json: { :success => "false", :message => "Wrong password"}
+      end
+    else
+      render json: { :success => "false", :message => "Incorrect username"}
+    end
+  end
+
   def show_feed
     render :feed
   end
@@ -20,7 +33,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(username: params[:username])
+    salt = ('a'..'z').to_a.shuffle[0,8].join
+    password = Digest::SHA2.hexdigest(salt + params[:password])
+    user = User.new(username: params[:username], salt: salt, password: password, email: params[:email])
     if user.save
       render json: user, status: 201
     else

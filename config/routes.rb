@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get :following, :followers
       get 'feed' => 'users#feed'
       get 'show_feed' => 'users#show_feed'
+      post 'login' => 'users#login'
     end
   end
   resources :relationships,       only: [:create, :destroy]
