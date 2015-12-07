@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :relationships, only: [:create, :destroy]
-  resources :reposts,       only: [:create, :destroy]
+  resources :relationships, only: [:create]
+  resources :reposts,       only: [:create]
 
 
   post '/login' => 'application#login', as: 'login'
+  get '/unrepost' => 'application#unrepost', as: 'unrepost'
+  get '/unfollow' => 'application#unfollow', as: 'unfollow'
 
   resources :clips do
     member do

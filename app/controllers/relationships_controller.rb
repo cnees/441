@@ -5,10 +5,4 @@ class RelationshipsController < ApplicationController
     User.find(params[:follower_id]).follow(user)
     redirect_to user
   end
-
-  def destroy
-    user = User.find(params[:unfollow_id])
-    User.find(params[:follower_id]).unfollow(user)
-    redirect_to user
-  end
 end

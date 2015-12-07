@@ -14,4 +14,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def unrepost
+    user = User.find(params[:reposter_id])
+    user.unrepost(params[:clip_id])
+    redirect_to user
+  end
+
+  def unfollow
+    user = User.find(params[:unfollow_id])
+    User.find(params[:follower_id]).unfollow(user)
+    redirect_to user
+  end
 end
