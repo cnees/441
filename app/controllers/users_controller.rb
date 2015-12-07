@@ -10,19 +10,6 @@ class UsersController < ApplicationController
                          OR user_id = :user_id OR id IN (#{clip_ids}))", user_id: id).order('created_at DESC').limit(10), :include => :user
   end
 
-  def login
-    if User.exists?(params[:id])
-      u = User.find(params[:id])
-      if u.password == Digest::SHA2.hexdigest(u.salt + params[:password])
-        render json: { :success => "true", :message => "Login successful"}
-      else
-        render json: { :success => "false", :message => "Wrong password"}
-      end
-    else
-      render json: { :success => "false", :message => "Incorrect username"}
-    end
-  end
-
   def show_feed
     render :feed
   end

@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     reposts.find_or_create_by(clip_id: clip)
   end
 
+  def unrepost(clip)
+    reposts.find_or_create_by(clip_id: clip).destroy
+  end
+
   def following?(other_user)
     following.include?(other_user)
   end

@@ -1,22 +1,25 @@
 Rails.application.routes.draw do
-  resources :relationships
-  resources :reposts
+
+  resources :relationships, only: [:create, :destroy]
+  resources :reposts,       only: [:create, :destroy]
+
+
+  post '/login' => 'application#login', as: 'login'
+
   resources :clips do
     member do
       put 'fave' => 'clips#fave'
     end
   end
+
   resources :users do
     member do
       get :following, :followers
       get 'feed' => 'users#feed'
       get 'show_feed' => 'users#show_feed'
-      post 'login' => 'users#login'
     end
   end
-  resources :relationships,       only: [:create, :destroy]
   
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
