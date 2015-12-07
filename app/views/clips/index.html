@@ -16,7 +16,7 @@
 
     // Login as user with id u1id
     $.post("/users/" + u1id + "/login", {"password": "abc123"}, function(data){console.log(data);});
-    
+
     // Failed login demo - bad uid
     $.post("/users/" + 1000000 + "/login", {"password": "abc123"}, function(data){console.log(data);});
 
@@ -42,21 +42,19 @@
         success: function(data) {console.log(data)}
       });
       
+      // Make another user
+      $.post("/users", {"username": username2, "password": "abc123", email: "u2@example.com"}, function(data){
+        console.log(data);
+        u2id = data.id;
+
+        // Make user 2 follow user 1
+        $.post("/relationships", {"follower_id": u2id, "followed_id": u1id}, function(data){console.log(data);});
+
+        // Make user 1 repost clip 2
+        $.post("/reposts", {"reposter_id": u1id, "clip_id": c1id}, function(data){console.log(data);});
+        
+      });
     });
-
-    // Make another user
-    $.post("/users", {"username": username2, "password": "abc123", email: "u2@example.com"}, function(data){
-      console.log(data);
-      u2id = data.id;
-
-      // Make user 2 follow user 1
-      $.post("/relationships", {"follower_id": u2id, "followed_id": u1id}, function(data){console.log(data);});
-
-      // Make user 1 repost clip 2
-      $.post("/reposts", {"reposter_id": u1id, "clip_id": c1id}, function(data){console.log(data);});
-
-    });
-    
   });
   
   // Get a user's feed by user id
