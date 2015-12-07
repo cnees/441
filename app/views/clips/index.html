@@ -35,6 +35,9 @@
       // Find a clip by ID (id: 1)
       $.get("/clips/" + c1id, function(data){console.log(data)});
 
+      // Get popular clips
+      $.get("/popular", function(data){console.log(data)});
+
       // Fave a clip by ID (currently lets you fave as many times as you want)
       $.ajax({
         url: "/clips/" + c1id + "/fave",

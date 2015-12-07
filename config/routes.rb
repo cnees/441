@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/login' => 'application#login', as: 'login'
   get '/unrepost' => 'application#unrepost', as: 'unrepost'
   get '/unfollow' => 'application#unfollow', as: 'unfollow'
+  get '/popular' => 'application#popular', as: 'popular'
 
   resources :clips do
     member do

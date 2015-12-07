@@ -25,4 +25,8 @@ class ApplicationController < ActionController::Base
     User.find(params[:follower_id]).unfollow(user)
     redirect_to user
   end
+
+  def popular
+    render json: Clip.order("faves DESC").limit(10);
+  end
 end
