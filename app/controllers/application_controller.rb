@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def popular
-    render json: Clip.order("faves DESC").limit(15)
+    render json: Clip.where("faves > 0").order("faves DESC").limit(15)
   end
 
   def feed
