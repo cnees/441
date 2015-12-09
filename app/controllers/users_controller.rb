@@ -6,8 +6,10 @@ class UsersController < ApplicationController
     following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
     clip_ids = "SELECT clip_id FROM reposts WHERE user_id IN (#{following_ids})"
     
+    #render json: Clip.where("(user_id IN (#{following_ids})
+    #                     OR user_id = :user_id OR id IN (#{clip_ids}))", user_id: id).order('created_at DESC').limit(15), :include => :user
     render json: Clip.where("(user_id IN (#{following_ids})
-                         OR user_id = :user_id OR id IN (#{clip_ids}))", user_id: id).order('created_at DESC').limit(15), :include => :user
+                         OR id IN (#{clip_ids}))", user_id: id).order('created_at DESC').limit(15), :include => :user
   end
 
   def show_feed
