@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :clips do
     member do
-      put 'fave' => 'clips#fave'
+      post 'fave' => 'clips#fave'
     end
   end
 
@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     member do
       get :following, :followers
       get 'feed' => 'users#feed'
+      get 'posts' => 'users#posts'
       get 'show_feed' => 'users#show_feed'
+      get 'show_posts' => 'users#show_posts'
     end
   end
   

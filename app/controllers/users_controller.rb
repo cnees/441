@@ -10,8 +10,17 @@ class UsersController < ApplicationController
                          OR user_id = :user_id OR id IN (#{clip_ids}))", user_id: id).order('created_at DESC').limit(10), :include => :user
   end
 
+  def posts
+    id = params[:id]
+    render json: Clip.find_by(user_id: id).order('created_at DESC').limit(10), :include => :user
+  end
+
   def show_feed
     render :feed
+  end
+
+  def show_posts
+    render :posts
   end
 
   def show
