@@ -44,7 +44,7 @@
       // Fave a clip by ID (currently lets you fave as many times as you want)
       $.ajax({
         url: "/clips/" + c1id + "/fave",
-        type: "PUT",
+        type: "POST",
         success: function(data) {console.log(data)}
       });
       

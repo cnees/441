@@ -13,7 +13,7 @@ class ClipsController < ApplicationController
       clip.faves = 1
     end
     clip.save!
-    render json: clip, status: 204
+    render json: clip
   end
 
   def create
