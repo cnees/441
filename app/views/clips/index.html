@@ -56,6 +56,12 @@
         // Make user 2 follow user 1
         $.post("/relationships", {"follower_id": u2id, "followed_id": u1id}, function(data){console.log(data);});
 
+        // Get User 1's followers list
+        $.get("/users/" + u1id + "/followers", function(data){console.log(data)});
+
+        // Get user 2's following list
+        $.get("/users/" + u2id + "/following", function(data){console.log(data)});
+
         // Make user 1 repost clip 1
         $.post("/reposts", {"reposter_id": u1id, "clip_id": c1id}, function(data){console.log(data);});
 
