@@ -27,11 +27,11 @@ class ApplicationController < ActionController::Base
   end
 
   def popular
-    render json: Clip.order("faves DESC").limit(15);
+    render json: Clip.order("faves DESC").limit(15)
   end
 
   def feed
-    render json: Clip.order("created_at DESC").limit(15);
+    render json: Clip.order("created_at DESC").limit(15), :include => :user
   end
 
   def search
