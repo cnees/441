@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/unfollow' => 'application#unfollow', as: 'unfollow'
   get '/popular' => 'application#popular', as: 'popular'
   get '/search' => 'application#search', as: 'search'
+  get '/feed' => 'application#feed', as: 'feed'
 
   resources :clips do
     member do
