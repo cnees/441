@@ -29,4 +29,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def followers
+    render json: User.find(params[:id]).followers
+  end
+
+  def following
+    render json: User.find(params[:id]).following
+  end
 end
