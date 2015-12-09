@@ -20,9 +20,8 @@ Rails.application.routes.draw do
     member do
       get :following, :followers
       get 'feed' => 'users#feed'
-      get 'posts' => 'users#posts'
       get 'show_feed' => 'users#show_feed'
-      get 'show_posts' => 'users#show_posts'
+      get 'user_posts' => 'users#user_posts'
     end
   end
   

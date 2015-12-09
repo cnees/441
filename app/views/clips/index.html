@@ -32,6 +32,9 @@
       
       c1id = data.id;
 
+      // Get a user's posts by user id
+      $.get("/users/" + 1 + "/user_posts", function(data){console.log(data)});
+
       // Find a clip by ID (id: 1)
       $.get("/clips/" + c1id, function(data){console.log(data)});
 
@@ -76,8 +79,5 @@
   
   // Get a user's feed by user id
   $.get("/users/" + 1 + "/feed", function(data){console.log(data)});
-
-  // Get a user's posts by user id
-  $.get("/users/" + 1 + "/posts", function(data){console.log(data)});
 
 </script>
